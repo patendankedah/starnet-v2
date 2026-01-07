@@ -115,7 +115,7 @@
     <div class="info">Klik dibawah</div>
   </div>
    <div id="todayCount" style="margin-top: 15px; font-size: 14px; color: #333; text-align: center;">Diambil hari ini: <strong id="countDisplay">0</strong></div>
-  <button class="btn-primary" onclick="ambil()">Ambil Voucher OK</button>
+  <button class="btn-primary" onclick="ambil()">Ambil Voucher V2</button>
   <script>
     const API_URL = 'https://script.google.com/macros/s/AKfycbwVQDuJk1fqYDfhylZ0aXTVmEN2JRyFa8Pnu2gtIU3W8xMH38XrKg9B7BhveG_1DToY/exec';
     let cardElement = null;
@@ -131,7 +131,7 @@
         const data = await res.json();
         if (data.status === 'empty') {
           card.innerHTML =
-            '<div class="subtitle">FIX Net Sebatuk</div>' +
+            '<div class="subtitle">StarNet V2</div>' +
             '<div class="info" style="color: red; font-weight: bold; font-size: 14px; margin: 5px 0;">Voucher habis</div>' +
             '<div class="info">Ditampilkan:<br><strong style="font-size:13px;">' + (data.today_count || 0) + '</strong></div>';
           return;
@@ -139,7 +139,7 @@
         const waktu = new Date(data.used_at);
         const timeStr = waktu.toLocaleString('id-ID', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'});
         card.innerHTML =
-          '<div class="subtitle">FIX Net Sebatuk</div>' +
+          '<div class="subtitle">StarNet V2</div>' +
           '<div class="voucher-amount" style="font-size:15px;">Voucher 50 Ribu</div>' +
           '<div class="info"><label>User:</label><strong style="font-size:15px;">' + data.user + '</strong></div>' +
           '<div class="info"><label>Paswd:</label><strong style="font-size:15px;">' + data.pass + '</strong></div>' +
@@ -167,7 +167,7 @@
           const url = URL.createObjectURL(blob);
           const link = document.createElement('a');
           link.href = url;
-          link.download = 'voucher_fix_net.png';
+          link.download = 'voucher_StarNet V2.png';
           link.click();
           URL.revokeObjectURL(url);
           
