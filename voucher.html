@@ -66,6 +66,13 @@
       font-weight: normal;
       margin-bottom: 2px;
     }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 8px;
+    }
     button {
       padding: 10px 20px;
       font-size: 14px;
@@ -89,7 +96,15 @@
       width: 90%;
       max-width: 250px;
       font-size: 16px;
-      margin-top: 20px;
+       margin-top: 20px;
+    }
+    .btn-share {
+      background: #25D366;
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+    .btn-share:hover {
+      background: #20BA5A;
     }
   </style>
 </head>
@@ -99,13 +114,12 @@
     <div class="voucher-amount">Voucher 50 Ribu</div>
     <div class="info">Klik dibawah</div>
   </div>
-  <div id="todayCount" style="margin-top: 15px; font-size: 14px; color: #333; text-align: center;">Diambil hari ini: <strong id="countDisplay">0</strong></div>
+   <div id="todayCount" style="margin-top: 15px; font-size: 14px; color: #333; text-align: center;">Diambil hari ini: <strong id="countDisplay">0</strong></div>
   <button class="btn-primary" onclick="ambil()">Ambil Voucher</button>
-
   <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbymaRe8dywJiG_2L7rn_kNmJp1FXC2rcioJKVuirR4hnXB3QE8QERNQjskvyKchWL/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbymaRe8dvwJIG_2L7rn__kNmJp1FXC2rcioJKVuirRr4hnXB3QE8QERNOjskyvKchWL/exec';
     let cardElement = null;
-
+    
     async function ambil() {
       const card = document.getElementById('card');
       const infoDiv = card.querySelector('.info');
@@ -117,7 +131,7 @@
         const data = await res.json();
         if (data.status === 'empty') {
           card.innerHTML =
-            '<div class="subtitle">StarNet V2</div>' +
+            '<div class="subtitle">FIX Net Sebatuk</div>' +
             '<div class="info" style="color: red; font-weight: bold; font-size: 14px; margin: 5px 0;">Voucher habis</div>' +
             '<div class="info">Ditampilkan:<br><strong style="font-size:13px;">' + (data.today_count || 0) + '</strong></div>';
           return;
@@ -125,40 +139,40 @@
         const waktu = new Date(data.used_at);
         const timeStr = waktu.toLocaleString('id-ID', {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit'});
         card.innerHTML =
-          '<div class="subtitle">StarNet V2</div>' +
+          '<div class="subtitle">FIX Net Sebatuk</div>' +
           '<div class="voucher-amount" style="font-size:15px;">Voucher 50 Ribu</div>' +
           '<div class="info"><label>User:</label><strong style="font-size:15px;">' + data.user + '</strong></div>' +
           '<div class="info"><label>Paswd:</label><strong style="font-size:15px;">' + data.pass + '</strong></div>' +
           '<div class="info"><label>Waktu:</label><strong style="font-size:12px;">' + timeStr + '</strong></div>';
         cardElement = {user: data.user, pass: data.pass, time: timeStr};
-        document.getElementById('countDisplay').textContent = data.today_count || 0;
+         document.getElementById('countDisplay').textContent = data.today_count || 0;
       } catch (e) {
         if (infoDiv) {
           infoDiv.textContent = 'Error';
         }
       }
     }
-
+    
     async function shareVoucher() {
       if (!cardElement) return;
-
+      
       try {
         const canvas = await html2canvas(document.getElementById('card'), {
           scale: 2,
           backgroundColor: '#ffffff',
           logging: false
         });
-
+        
         canvas.toBlob(function(blob) {
           const url = URL.createObjectURL(blob);
           const link = document.createElement('a');
           link.href = url;
-          link.download = 'voucher_starnet_v2.png';
+          link.download = 'voucher_fix_net.png';
           link.click();
           URL.revokeObjectURL(url);
-
+          
           setTimeout(() => {
-            const whatsappUrl = 'https://wa.me/?text=Voucher%20StarNet%20V2%2050%20Ribu';
+            const whatsappUrl = 'https://wa.me/?text=Voucher%20FIX%20NET%2050%20Ribu';
             window.open(whatsappUrl, '_blank');
           }, 500);
         });
